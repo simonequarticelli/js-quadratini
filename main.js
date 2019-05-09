@@ -8,39 +8,63 @@
 
 $(document).ready(function(){
 
-// var array_quadrati = [];
-// var quadrato = $('#quadrato');
-// for (var i = 1; i < 64; i++) {
-//   quadrato.clone().appendTo('.container');
-//   array_quadrati.push(quadrato[i]);
-// };
 
-var quadrato = $('.quadrato')
+  for (var i = 0; i < 64; i++) {
+    $('.container').append('<div class="quadrato"></div>');
+  };
 
-var array_quadrati = [];
+  var quadrato = $('.quadrato');
 
-for (var i = 0; i < 64; i++) {
-  array_quadrati.push(quadrato[i]);
-}
+  var array_quadrati = [];
 
-console.log(array_quadrati);
+  for (var i = 0; i < 64; i++) {
+    array_quadrati.push(quadrato[i]);
+  }
 
-var array_bombe = [];
+  console.log(array_quadrati);
 
-var random = array_quadrati[Math.floor(Math.random()*array_quadrati.length)];
+  var array_bombe = [];
 
-for (var i = 0; i < 15; i++) {
-  array_bombe.push(array_quadrati[Math.floor(Math.random()*array_quadrati.length)]);
-}
+  var random = array_quadrati[Math.floor(Math.random()*array_quadrati.length)];
 
-console.log(array_bombe);
 
-var contatore_rossi = 0;
-var contatroe_verdi = 0;
+  for (var i = 0; i < 15; i++) {
+    array_bombe.push(array_quadrati[Math.floor(Math.random()*array_quadrati.length)]);
+    $(array_bombe).addClass('bomba');
+  }
 
-$(array_bombe).click(function () {
-  $(this).addClass('red');
-});
+  console.log(array_bombe);
 
+
+  for (var i = 0; i < array_quadrati.length; i++) {
+    if ($(array_quadrati[i]).hasClass('bomba') != true) {
+      $(array_quadrati[i]).addClass('salvo');
+    }
+  }
+
+  console.log(array_quadrati);
+
+  var contatore_verdi = 0;
+  var contatore_rossi = 0;
+
+  $('.quadrato').click(function(){
+    if ($(this).hasClass('bomba')) {
+      if (!$(this).hasClass('red')) {
+        $(this).addClass('red');
+        contatore_rossi++;
+        $('#cont-rossi span').html(contatore_rossi);
+      }
+
+    }else{
+      if (!$(this).hasClass('green')) {
+        $(this).addClass('green');
+        contatore_verdi++;
+        $('#cont-verdi span').html(contatore_verdi);
+      }
+
+    }
+  });
+
+  console.log(array_quadrati);
 
 });
